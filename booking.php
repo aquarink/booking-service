@@ -16,43 +16,43 @@ if(isset($_POST['tombol_submit'])) { // kalau tombol di klik
 		empty($_POST['tglbook']) || empty($_POST['jambook'])) {
 
 		$warning = 'Kolom Tidak Boleh Kosong';
-	} else {
+} else {
 		// tidak kosong
-		$nama = $_POST['nama'];
-		$nohp = $_POST['nohp'];
-		$tipe = $_POST['tipe'];
-		$nopol = $_POST['nopol'];
-		$norangka = $_POST['norangka'];
-		$alamat = $_POST['alamat'];
-		$tglbook = $_POST['tglbook'];
-		$jambook = $_POST['jambook']; 
+	$nama = $_POST['nama'];
+	$nohp = $_POST['nohp'];
+	$tipe = $_POST['tipe'];
+	$nopol = $_POST['nopol'];
+	$norangka = $_POST['norangka'];
+	$alamat = $_POST['alamat'];
+	$tglbook = $_POST['tglbook'];
+	$jambook = $_POST['jambook']; 
 
 
 		// Cek dengan parameter no.HP
-		$cek_HPuser_query = 'SELECT * FROM user_tb WHERE no_hp = '.$nohp;
-		$run_cek_HPuser_query = mysql_query($cek_HPuser_query);
-		$cek_data = mysql_num_rows($run_cek_HPuser_query);
+	$cek_HPuser_query = 'SELECT * FROM user_tb WHERE no_hp = '.$nohp;
+	$run_cek_HPuser_query = mysql_query($cek_HPuser_query);
+	$cek_data = mysql_num_rows($run_cek_HPuser_query);
 
-		if($cek_data > 0) {
+	if($cek_data > 0) {
 			// ada data
 
 			// Panggil data lama berdasarkan no.hp
-			$data_user_by_hp = mysql_fetch_assoc($run_cek_HPuser_query);
+		$data_user_by_hp = mysql_fetch_assoc($run_cek_HPuser_query);
 
-			$cek_kendaraan_query = 'SELECT * FROM kendaraan_tb WHERE id_user = '.$data_user_by_hp['id_user'];
-			$run_cek_kendaraan_query = mysql_query($cek_kendaraan_query);
-			$data_kendaraan = mysql_num_rows($run_cek_kendaraan_query);
+		$cek_kendaraan_query = 'SELECT * FROM kendaraan_tb WHERE id_user = '.$data_user_by_hp['id_user'];
+		$run_cek_kendaraan_query = mysql_query($cek_kendaraan_query);
+		$data_kendaraan = mysql_num_rows($run_cek_kendaraan_query);
 
 			// Setelah dapat data
 
 			// Data
-			$id_user = $data_user_by_hp['id_user'];
-			$id_kendaraan = $data_kendaraan['id_kendaraan'];
+		$id_user = $data_user_by_hp['id_user'];
+		$id_kendaraan = $data_kendaraan['id_kendaraan'];
 
-			$create_at = date('Y-m-d h:i:s');
+		$create_at = date('Y-m-d h:i:s');
 
 			// Insert Data ke USer tabel
-			$insert_booking_query = 'INSERT INTO booking_tb (id_user,id_kendaraan,tgl_booking,jam_booking,status_booking,create_at) VALUES($id_user,$id_kendaraan,$tglbook,$jambook,1,$create_at)';
+		$insert_booking_query = 'INSERT INTO booking_tb (id_user,id_kendaraan,tgl_booking,jam_booking,status_booking,create_at) VALUES($id_user,$id_kendaraan,$tglbook,$jambook,1,$create_at)';
 			$run_insert_booking_query = mysql_query($insert_booking_query); // data masuk ke booking_tb
 
 			if($run_insert_booking_query) {
@@ -148,25 +148,59 @@ if(isset($_POST['tombol_submit'])) { // kalau tombol di klik
 			</div>
 			<div class="form-group">
 				<label for="tglbook">Tanggal Booking</label>
-				<input name="tglbook" type="date" class="form-control" id="tglbook111" placeholder="Tanggal Booking">
+				<input name="tglbook" type="text" class="form-control" id="tglbook111" placeholder="Tanggal Booking">
 			</div>
 			<div class="form-group">
-				<label for="jambook">Jam Booking</label>
-				<input required name="jambook" type="time" class="form-control" id="jambook" placeholder="Jam Booking">
+				<button type="button" class="btn btn-primary" data-toggle="modal" data-target="#myModal">Pilih Mekanik</button>
+				<span class="label label-info">Mekanik 1 dipilih pada jam 8</span>
 			</div>
 			<br>
 			<button type="submit" name="tompol_submit" class="btn btn-success">Submit</button>
 		</form>
+	</div>
+	<div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+		<div class="modal-dialog" role="document">
+			<div class="modal-content">
+				<form>
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+						<h4 class="modal-title" id="myModalLabel">Nama Mekanik 1</h4>
+						<select class="form-control">
+							<option>--Pilih Jam Kunjungan--</option>
+							<option>Jam 8</option>
+							<option>Jam 9</option>
+							<option>Jam 10</option>
+							<option>Jam 11</option>
+						</select>
+					</div>
+					<div class="modal-header">
+						<button type="button" class="close" data-dismiss="modal" aria-label="Close"></button>
+						<h4 class="modal-title" id="myModalLabel">Nama Mekanik 2</h4>
+						<select class="form-control">
+							<option>--Pilih Jam Kunjungan--</option>
+							<option>Jam 8</option>
+							<option>Jam 9</option>
+							<option>Jam 10</option>
+							<option>Jam 11</option>
+						</select>
+					</div>
+					<div class="modal-footer">
+						<button type="button" class="btn btn-primary">Pilih Mekanik</button>
+					</div>
+				</form>
+			</div>
+		</div>
 	</div>
 
 	<script type="text/javascript" src="bootstrap/js/jquery-1.12.4.js"></script>
 	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
 	<script type="text/javascript" src="bootstrap/js/jquery-ui.js"></script>
 
-	<script type="text/javascript">
-		$( function() {
-		    $( "#tglbook111" ).datepicker();
-		  } );
+	<script>
+	$( function() {
+		$( "#tglbook111" ).datepicker();
+	} );
+	</script>
 
 </body>
 </html>
