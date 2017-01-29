@@ -22,20 +22,24 @@ DROP TABLE IF EXISTS `booking_tb`;
 
 CREATE TABLE `booking_tb` (
   `id_booking` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
-  `id_mekanik` int(11) DEFAULT NULL,
-  `id_kendaraan` int(11) DEFAULT NULL,
+  `nama` varchar(100) DEFAULT NULL,
+  `no_hp` varchar(20) DEFAULT NULL,
   `tgl_booking` varchar(20) DEFAULT NULL,
-  `jam_booking` varchar(20) DEFAULT NULL,
+  `id_jenis` int(11) DEFAULT NULL,
   `masalah` text,
+  `no_polisi` varchar(20) DEFAULT NULL,
+  `no_rangka` varchar(20) DEFAULT NULL,
+  `alamat` text,
+  `id_mekanik` int(11) DEFAULT NULL,
+  `jam_booking` varchar(20) DEFAULT NULL,
   `status_booking` enum('1','2','3') DEFAULT NULL,
   `create_at` datetime DEFAULT NULL,
   PRIMARY KEY (`id_booking`)
-) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=latin1;
+) ENGINE=InnoDB AUTO_INCREMENT=28 DEFAULT CHARSET=latin1;
 
 /*Data for the table `booking_tb` */
 
-insert  into `booking_tb`(`id_booking`,`id_user`,`id_mekanik`,`id_kendaraan`,`tgl_booking`,`jam_booking`,`masalah`,`status_booking`,`create_at`) values (9,5,1,3,'01/27/2017','8','Rusak parah','1','0000-00-00 00:00:00'),(10,5,1,0,'01/03/2017','10','Parah bro','1','2017-01-27 04:06:44'),(11,5,1,0,'01/10/2017','10','dsdsd','1','2017-01-27 04:10:25'),(12,5,1,3,'01/10/2017','10','dsdsd','1','2017-01-27 04:11:50'),(13,5,1,3,'01/10/2017','10','dsdsd','1','2017-01-27 04:12:53'),(14,0,1,0,'01/01/2017','8','sdsd','1','0000-00-00 00:00:00'),(15,0,1,0,'01/01/2017','10','sdsd','1','0000-00-00 00:00:00');
+insert  into `booking_tb`(`id_booking`,`nama`,`no_hp`,`tgl_booking`,`id_jenis`,`masalah`,`no_polisi`,`no_rangka`,`alamat`,`id_mekanik`,`jam_booking`,`status_booking`,`create_at`) values (25,'Andri 1','081510193960','01/29/2017',10,'sdsdsd','2323','2323','asas',1,'14','3','2017-01-27 02:47:07'),(26,'Andri 2','081510193960','01/29/2017',3,'asas','2323','2323','asas',1,'16','3','2017-01-27 02:47:45'),(27,'Andri 3','081510193960','01/29/2017',9,'asas','2323','2323','jhfdsj',1,'8','3','2017-01-27 03:03:17');
 
 /*Table structure for table `jenis_kendaraan_tb` */
 
@@ -50,24 +54,6 @@ CREATE TABLE `jenis_kendaraan_tb` (
 /*Data for the table `jenis_kendaraan_tb` */
 
 insert  into `jenis_kendaraan_tb`(`id_jenis`,`nama_jenis`) values (1,'Avanza'),(2,'Kijang Innova Bensin'),(3,'Kijang Innova Diesel'),(4,'Fortuner Bensin'),(5,'Fortuner Diesel'),(6,'Agya'),(7,'Calya'),(8,'Vios'),(9,'Yaris'),(10,'Rush'),(11,'Sienta'),(12,'Etios'),(13,'Alphard'),(14,'Camry'),(15,'FT86');
-
-/*Table structure for table `kendaraan_tb` */
-
-DROP TABLE IF EXISTS `kendaraan_tb`;
-
-CREATE TABLE `kendaraan_tb` (
-  `id_kendaraan` int(11) NOT NULL AUTO_INCREMENT,
-  `id_user` int(11) DEFAULT NULL,
-  `id_jenis` int(11) DEFAULT NULL,
-  `no_polisi` varchar(10) DEFAULT NULL,
-  `no_rangka` varchar(30) DEFAULT NULL,
-  `status_kendaraan` enum('1','2') DEFAULT NULL,
-  PRIMARY KEY (`id_kendaraan`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
-/*Data for the table `kendaraan_tb` */
-
-insert  into `kendaraan_tb`(`id_kendaraan`,`id_user`,`id_jenis`,`no_polisi`,`no_rangka`,`status_kendaraan`) values (3,5,2,'A111111','AAA111','1'),(4,0,11,'sds','sdsd','1'),(5,0,13,'sdsd','sdsd','1');
 
 /*Table structure for table `mekanik_tb` */
 
@@ -85,23 +71,6 @@ CREATE TABLE `mekanik_tb` (
 /*Data for the table `mekanik_tb` */
 
 insert  into `mekanik_tb`(`id_mekanik`,`username`,`password`,`nama_mekanik`,`status_mekanik`) values (1,'fathur1','fathur1','Fathur 1','1'),(2,'fathur2','fathur2','Fathur 2','1');
-
-/*Table structure for table `user_tb` */
-
-DROP TABLE IF EXISTS `user_tb`;
-
-CREATE TABLE `user_tb` (
-  `id_user` int(11) NOT NULL AUTO_INCREMENT,
-  `nama_user` varchar(100) DEFAULT NULL,
-  `no_hp` varchar(100) DEFAULT NULL,
-  `alamat` text,
-  `status` enum('1','2') DEFAULT NULL,
-  PRIMARY KEY (`id_user`)
-) ENGINE=InnoDB AUTO_INCREMENT=6 DEFAULT CHARSET=latin1;
-
-/*Data for the table `user_tb` */
-
-insert  into `user_tb`(`id_user`,`nama_user`,`no_hp`,`alamat`,`status`) values (5,'Juri','081510193960','Pondok Cabe Ilir','1');
 
 /*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
 /*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;

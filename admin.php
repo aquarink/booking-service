@@ -1,22 +1,27 @@
+<?php session_start(); if(isset($_SESSION['mekanik'])) { ?>
 <html>
 <head>
-	<title>Admin Booking Service</title>
+	<title>Permintaan Service | Admin Booking Service</title>
 	
 	<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.min.css">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 	<style type="text/css">
-	.trash { color:rgb(209, 91, 71); }
-	.flag { color:rgb(248, 148, 6); }
-	.panel-body { padding:0px; }
-	.panel-footer .pagination { margin: 0; }
-	.panel .glyphicon,.list-group-item .glyphicon { margin-right:5px; }
-	.panel-body .radio, .checkbox { display:inline-block;margin:0px; }
-	.panel-body input[type=checkbox]:checked + label { text-decoration: line-through;color: rgb(128, 144, 160); }
-	.list-group-item:hover, a.list-group-item:focus {text-decoration: none;background-color: rgb(245, 245, 245);}
-	.list-group { margin-bottom:0px; }
+		.widget .panel-body { padding:0px; }
+		.widget .list-group { margin-bottom: 0; }
+		.widget .panel-title { display:inline }
+		.widget .label-info { float: right; }
+		.widget li.list-group-item {border-radius: 0;border: 0;border-top: 1px solid #ddd;}
+		.widget li.list-group-item:hover { background-color: rgba(86,61,124,.1); }
+		.widget .mic-info { color: #666666;font-size: 11px; }
+		.widget .action { margin-top:5px; }
+		.widget .comment-text { font-size: 12px; }
+		.Adisabled {
+		   pointer-events: none;
+		   cursor: default;
+		}
 	</style>
 </head>
-<body>
+<body style="background-color:#bfb0b0">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -36,65 +41,35 @@
 					<li><a href="report.php"><i class='glyphicon glyphicon-list-alt'></i> History</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="adminlogin.php"><i class='glyphicon glyphicon-off'></i> Logout</a></li>
+					<li><a href="sistem/logout.php"><i class='glyphicon glyphicon-off'></i> Logout</a></li>
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
 	</nav>
 
-
 	<div class="container" style="margin-top:70px">
-		<div class="">
-			<div class="panel panel-primary">
-				<div class="panel-heading">
-					<span class="glyphicon glyphicon-list"></span>List Order Today
-					<div class="pull-right action-buttons">
-						<div class="btn-group pull-right">
-						</button>
-						<ul class="dropdown-menu slidedown">
-							<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span>Edit</a></li>
-							<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span>Edit</a></li>
-							<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-trash"></span>Delete</a></li>
-							<li><a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-flag"></span>Flag</a></li>
-						</ul>
-					</div>
-				</div>
+		<div class="row">
+			<div class="col-md-2"></div>
+			<div class="col-md-8" id="loadContent">
+				
 			</div>
-			<div class="panel-body">
-				<ul class="list-group">
-					<li class="list-group-item">
-						<div class="checkbox">
-							<label for="checkbox">
-								List group item heading
-							</label>
-						</div>
-						<div class="pull-right action-buttons">
-							<a href="http://www.jquery2dotnet.com" class="play"><span class="glyphicon glyphicon-play"></span></a>
-							<a href="http://www.jquery2dotnet.com" class="stop"><span class="glyphicon glyphicon-stop"></span></a>
-							<a href="http://www.jquery2dotnet.com"><span class="glyphicon glyphicon-pencil"></span></a>
-							<a href="http://www.jquery2dotnet.com" class="trash"><span class="glyphicon glyphicon-trash"></span></a>
-						</div>
-					</li>
-				</ul>
-			</div>
-			<div class="panel-footer">
-				<div class="row">
-					<div class="col-md-6">
-						<h6>
-							Total Count <span class="label label-info">25</span></h6>
-						</div>
-					</div>
-				</div>
-			</div>
+			<div class="col-md-2"></div>
 		</div>
 	</div>
-</div>
-</div>
-</div>
-</div>
 
-<script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
-<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/jquery.min.js"></script>
+	<script type="text/javascript" src="bootstrap/js/bootstrap.min.js"></script>
+	<script>
+	$(document).ready(function () {
+	    setInterval(function () {
+	    	$('#loadContent').load('konten_booking.php').fadeIn();
+	    }, 2000);
+	});
+	</script>
 
 </body>
 </html>
+<?php } else {
+	header("location: adminlogin.php");
+}
+?>

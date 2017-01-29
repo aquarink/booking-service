@@ -5,7 +5,7 @@
 	<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body>
+<body style="background-color:#bfb0b0">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -24,6 +24,7 @@
 					<li class="active"><a href="index.php"><i class='glyphicon glyphicon-home'></i> Tentang Kami</a></li>
 					<li><a href="layanan.php"><i class='glyphicon glyphicon-wrench'></i> Layanan</a></li>
 					<li><a href="booking.php"><i class='glyphicon glyphicon-list alt'></i> Booking Layanan Kerumah</a></li>
+					<li><a href="tracking.php"><i class='glyphicon glyphicon-search alt'></i> Tracking Bookingan</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
 					<li><a href="adminlogin.php"><i class='glyphicon glyphicon-user'></i> Login Admin</a></li>

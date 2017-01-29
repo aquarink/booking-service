@@ -1,3 +1,11 @@
+<?php 
+session_start(); 
+if(isset($_SESSION['mekanik'])) {
+	header("location: admin.php");
+}
+
+?>
+<html>
 <html>
 <head>
 	<title>Admin Login</title>
@@ -5,7 +13,7 @@
 	<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
 </head>
-<body>
+<body style="background-color:#bfb0b0">
 	<nav class="navbar navbar-default navbar-fixed-top">
 		<div class="container">
 			<div class="navbar-header">
@@ -24,7 +32,7 @@
 					<li><a href="index.php"><i class='glyphicon glyphicon-share-alt'></i> Halaman Pelanggan</a></li>
 				</ul>
 				<ul class="nav navbar-nav navbar-right">
-					<li><a href="adminlogin.php"><i class='glyphicon glyphicon-user'></i> Login Admin</a></li>
+					<!-- <li><a href="adminlogin.php"><i class='glyphicon glyphicon-user'></i> Login Admin</a></li> -->
 				</ul>
 			</div><!--/.nav-collapse -->
 		</div>
@@ -34,22 +42,21 @@
 		<div class="container">
 			<div class="row">
 				<div class="col-md-4 col-md-offset-4">
+					<?php if(isset($_GET['msg'])) { echo '<div class="alert alert-info"><strong>Info!</strong>'.$_GET['msg'].'</div>'; } ?>
 					<div class="panel panel-default">
-						<div class="panel-heading">                                
-                                <div class="container" style="margin-center">
-                                    <img src="bootstrap/images/001.png" class="img img-circle">
-                                </div>
+						<div class="panel-heading" style="text-align:center">                           
+                                <img src="bootstrap/images/001.png" class="img img-circle">
                             </div>
 						<div class="panel-body">
-							<form accept-charset="UTF-8" role="form" class="form-signin">
+							<form action="sistem/proses_login.php" method="POST" class="form-signin">
 								<fieldset>
-									<label class="panel-login">
-										<div class="login_result"></div>
-									</label>
-									<input class="form-control" placeholder="Username" id="ftr" type="text">
-									<input class="form-control" placeholder="Password" id="1234" type="password">
+									<label>Username</label>
+									<input class="form-control" name="Username" placeholder="Username" type="text">
+									<br>
+									<label>Password</label>
+									<input class="form-control" name="Password" placeholder="Password" type="password">
 									<br></br>
-									<input href="admin.php" class="btn btn-lg btn-success btn-block" type="submit" id="login" value="Login »">	
+									<input class="btn btn-lg btn-success btn-block" name="btnLogin" type="submit" id="login" value="Login">	
 								</fieldset>
 							</form>
 						</div>
