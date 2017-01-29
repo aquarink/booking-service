@@ -1,4 +1,38 @@
-<?php include_once 'sistem/koneksi_db.php'; ?>
+<?php 
+include_once 'sistem/koneksi_db.php'; 
+
+if(isset($_POST['noPolisi'])) {
+	if(empty($_POST['noPolisi'])) {
+		$pesan = 'Tidak boleh Kosong';
+	} else {
+		$noPolis = $_POST['noPolisi'];
+		$tglBooking = date('m/d/Y');
+
+		$booking = mysql_query("SELECT * FROM booking_tb WHERE no_polisi = '$noPolis' AND tgl_booking = '$tglBooking'");
+		$cekBooking = mysql_num_rows($booking);
+		$fetch_booking = mysql_fetch_assoc($booking);
+
+		$idMekanik = $fetch_booking['id_mekanik'];
+
+		$mekanik_query = mysql_query("SELECT * FROM mekanik_tb WHERE id_mekanik = '$idMekanik'");
+		$fetch_mekanik_query = mysql_fetch_assoc($mekanik_query);
+
+		if($cekBooking > 0) {
+
+			if($fetch_booking['status_booking'] == 1) {
+				$pesan = '<div class="alert alert-info"><strong>Pemesanan service home anda sudah masuk antrian dan sedang menunggu respon mekanik</strong></div>';
+			} elseif($fetch_booking['status_booking'] == 2) {
+				$pesan = '<div class="alert alert-info"><strong>Pemesanan service home anda sudah diterima mekanik '.$fetch_mekanik_query['nama_mekanik'].' dan akan segera datang</strong></div>';
+			} elseif($fetch_booking['status_booking'] == 3) {
+				$pesan = '<div class="alert alert-info"><strong>Pemesanan service home anda sudah seesai dikerjakan mekanik '.$fetch_mekanik_query['nama_mekanik'].'</strong></div>';
+			} else {
+				$pesan = '<div class="alert alert-info"><strong>Tidak ada pemesanan dengan nomor polisi '.$noPolis.'</strong></div>'; 
+			}
+		}
+
+	}
+}
+?>
 <html>
 <head>
 	<title>Booking Service</title>
@@ -6,6 +40,39 @@
 	<link type="text/css" rel="stylesheet" href="bootstrap/css/bootstrap.css"/>
 	<link type="text/css" rel="stylesheet" href="bootstrap/css/jquery-ui.css"/>
 	<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+	<style type="text/css">
+	#custom-search-input{
+		padding: 3px;
+		border: solid 1px #E4E4E4;
+		border-radius: 6px;
+		background-color: #fff;
+	}
+
+	#custom-search-input input{
+		border: 0;
+		box-shadow: none;
+	}
+
+	#custom-search-input button{
+		margin: 2px 0 0 0;
+		background: none;
+		box-shadow: none;
+		border: 0;
+		color: #666666;
+		padding: 0 8px 0 10px;
+		border-left: solid 1px #ccc;
+	}
+
+	#custom-search-input button:hover{
+		border: 0;
+		box-shadow: none;
+		border-left: solid 1px #ccc;
+	}
+
+	#custom-search-input .glyphicon-search{
+		font-size: 23px;
+	}
+	</style>
 </head>
 <body style="background-color:#bfb0b0">
 	<nav class="navbar navbar-default navbar-fixed-top">
@@ -43,17 +110,22 @@
 		<div class="col-md-6">
 			<h3 align="center">TRACKING BOOKING TOYOTA HOME SERVICE</h3>
 			<h3 align="center">AUTO2000 BINTARO</h3>
-			<?php if(isset($_GET['msg'])) { echo '<div class="alert alert-info"><strong>Info!</strong>'.$_GET['msg'].'</div>'; } ?>
+			<?php if(isset($pesan)) {echo $pesan; } ?>
 
-
-			<form action="sistem/proses_tracking.php" method="POST">
-				<div class="form-group">
-					<label for="nama">NO. POLISI</label>
-					<input required name="nama" autofocus type="text" class="form-control" value="<?php if(isset($_GET['no_polisi'])) { echo $_GET['no_polisi']; } ?>" placeholder="Nama">
+			<form action="" method="POST">
+				<h4 align="center">Nomor Polisi Kendaraan</h4>
+				<div id="custom-search-input">
+					<div class="input-group col-md-12">
+						<input required type="text" class="form-control input-lg" name="noPolisi" placeholder="Nomor Polisi Kendaraan" />
+						<span class="input-group-btn">
+							<button class="btn btn-info btn-lg" type="submit"><i class="glyphicon glyphicon-search"></i></button>
+						</span>
+					</div>
 				</div>
-				<br>
-				<input type="submit" name="tombol_track" class="btn btn-success" value="Track Booking"></input>
 			</form>
+
+			
+
 		</div>
 
 		<div class="col-md-3"></div>
